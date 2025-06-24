@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MatakuliahController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,6 +33,11 @@ Route::middleware(['auth', 'role:tu'])->group(function () {
     Route::get('mahasiswa-export', [MahasiswaController::class, 'export'])->name('mahasiswa.export');
     Route::post('mahasiswa-import', [MahasiswaController::class, 'import'])->name('mahasiswa.import');
 });
+
+Route::middleware(['auth', 'role:tu'])->group(function () {
+    Route::resource('matakuliah', MatakuliahController::class);
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

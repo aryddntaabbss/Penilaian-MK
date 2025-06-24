@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\DosenController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,7 +28,7 @@ Route::middleware(['auth', 'role:tu'])->group(function () {
     });
 });
 
-// Mahasiswa resource routes for TU role}}
+// resource routes for TU role}}
 Route::middleware(['auth', 'role:tu'])->group(function () {
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::get('mahasiswa-export', [MahasiswaController::class, 'export'])->name('mahasiswa.export');
@@ -39,6 +40,14 @@ Route::middleware(['auth', 'role:tu'])->group(function () {
     Route::get('matakuliah-export', [MatakuliahController::class, 'export'])->name('matakuliah.export');
     Route::post('matakuliah-import', [MatakuliahController::class, 'import'])->name('matakuliah.import');
 });
+
+Route::middleware(['auth', 'role:tu'])->group(function () {
+    Route::resource('dosen', DosenController::class);
+    Route::get('/dosen-export', [DosenController::class, 'export'])->name('dosen.export');
+    Route::post('/dosen-import', [DosenController::class, 'import'])->name('dosen.import');
+});
+// End of resource routes for TU role
+
 
 
 Route::get('/dashboard', function () {

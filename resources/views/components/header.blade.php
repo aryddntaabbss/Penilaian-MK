@@ -6,6 +6,7 @@
             <a href="/" class="hover:underline">Home</a>
             <a href="/mahasiswa" class="hover:underline">Mahasiswa</a>
             <a href="/matakuliah" class="hover:underline">Matakuliah</a>
+            <a href="/dosen" class="hover:underline">Dosen</a>
 
             <div class="relative">
                 <x-dropdown align="right" width="48">

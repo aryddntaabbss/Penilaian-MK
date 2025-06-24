@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\NilaiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -48,7 +49,12 @@ Route::middleware(['auth', 'role:tu'])->group(function () {
 });
 // End of resource routes for TU role
 
+// resource routes for Nilai
+Route::resource('/nilai', NilaiController::class);
+Route::get('/nilai-export', [NilaiController::class, 'export'])->name('nilai.export');
 
+
+// End of resource routes for Nilai
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -3,7 +3,8 @@
         <div class="text-lg font-bold">Sistem Penilaian MK</div>
 
         <div class="flex items-center space-x-6">
-            <a href="/" class="hover:underline">Home</a>
+            <a href="/dashboard" class="hover:underline">Home</a>
+
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" class="hover:underline inline-flex items-center">
                     Manajemen Data
@@ -21,6 +22,8 @@
                     <a href="/dosen" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Data Dosen</a>
                 </div>
             </div>
+
+            <a href="/nilai" class="hover:underline">Data Nilai</a>
 
             <div class="relative">
                 <x-dropdown align="right" width="48">

@@ -10,10 +10,10 @@ class MatakuliahImport implements ToModel
     public function model(array $row)
     {
         return new Matakuliah([
-            'kode'     => $row[1],
-            'nama'     => $row[2],
-            'sks'      => $row[3],
-            'semester' => $row[4],
+            'kode'     => $row['kode'],
+            'nama'     => $row['nama'],
+            'sks'      => $row['sks'],
+            'semester' => $row['semester'],
         ]);
     }
 }

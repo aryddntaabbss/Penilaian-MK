@@ -36,6 +36,8 @@ Route::middleware(['auth', 'role:tu'])->group(function () {
 
 Route::middleware(['auth', 'role:tu'])->group(function () {
     Route::resource('matakuliah', MatakuliahController::class);
+    Route::get('matakuliah-export', [MatakuliahController::class, 'export'])->name('matakuliah.export');
+    Route::post('matakuliah-import', [MatakuliahController::class, 'import'])->name('matakuliah.import');
 });
 
 

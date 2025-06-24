@@ -24,8 +24,8 @@
                             class="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700">+
                             Tambah Matakuliah</a>
 
-                        {{-- <a href="{{ route('matakuliah.export') }}"
-                        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export Excel</a>
+                        <a href="{{ route('matakuliah.export') }}"
+                            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export Excel</a>
 
                         <!-- Button to open modal -->
                         <button id="openImportModal" type="button"
@@ -54,7 +54,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                     <!-- End of action buttons -->
                 </div>

@@ -8,7 +8,7 @@
 
         <!-- Breadcrumb -->
         <x-breadcrumb :items="[
-            ['title' => 'Dashboard', 'url' => route('dashboard')],
+            ['title' => 'Manajemen Data', 'url' => route('dashboard')],
             ['title' => 'Dosen', 'url' => route('dosen.index')],
             ['title' => 'Edit Dosen']
         ]" />

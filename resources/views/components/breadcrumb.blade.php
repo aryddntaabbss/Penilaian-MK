@@ -2,10 +2,8 @@
     <nav class="flex" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-2">
             <li>
-                <a href="/" class="text-gray-500 hover:text-teal-600">
-                    <svg class="w-4 h-4 mr-1 inline" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 20v-6h4v6h5v-8h3L10 0 0 12h3v8z" />
-                    </svg>
+                <a href="/dashboard" class="text-gray-500 hover:text-teal-600">
+                    <i class="fa-solid fa-house"></i>
                     Dashboard
                 </a>
             </li>

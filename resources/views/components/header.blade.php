@@ -4,9 +4,23 @@
 
         <div class="flex items-center space-x-6">
             <a href="/" class="hover:underline">Home</a>
-            <a href="/mahasiswa" class="hover:underline">Mahasiswa</a>
-            <a href="/matakuliah" class="hover:underline">Matakuliah</a>
-            <a href="/dosen" class="hover:underline">Dosen</a>
+            <div class="relative" x-data="{ open: false }">
+                <button @click="open = !open" class="hover:underline inline-flex items-center">
+                    Manajemen Data
+                    <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M5.23 7.21a.75.75 0 011.06.02L10 10.586l3.71-3.356a.75.75 0 111.04 1.08l-4.25 3.857a.75.75 0 01-1.04 0L5.21 8.29a.75.75 0 01.02-1.08z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+
+                <div x-show="open" @click.away="open = false"
+                    class="absolute mt-2 w-48 bg-white rounded shadow-lg py-2 z-50 border">
+                    <a href="/mahasiswa" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Data Mahasiswa</a>
+                    <a href="/matakuliah" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Data Matakuliah</a>
+                    <a href="/dosen" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Data Dosen</a>
+                </div>
+            </div>
 
             <div class="relative">
                 <x-dropdown align="right" width="48">

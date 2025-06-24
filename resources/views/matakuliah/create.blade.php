@@ -10,7 +10,7 @@
 
         <!-- Breadcrumb -->
         <x-breadcrumb :items="[
-            ['title' => 'Dashboard', 'url' => route('dashboard')],
+            ['title' => 'Manajemen Data', 'url' => route('dashboard')],
             ['title' => 'Matakuliah', 'url' => route('matakuliah.index')],
             ['title' => 'Tambah Matakuliah']
         ]" />

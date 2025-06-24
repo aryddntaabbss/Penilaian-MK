@@ -6,6 +6,12 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+        <!-- Breadcrumb -->
+        <x-breadcrumb :items="[
+            ['title' => 'Manajemen Data', 'url' => route('dashboard')],
+            ['title' => 'Mahasiswa', 'url' => route('mahasiswa.index')]
+        ]" />
+
         <section class=" overflow-hidden mb-5">
             <div class="p-6">
                 <div class="flex justify-between mb-4">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +26,12 @@ Route::middleware(['auth', 'role:tu'])->group(function () {
     });
 });
 
+// Mahasiswa resource routes for TU role}}
+Route::middleware(['auth', 'role:tu'])->group(function () {
+    Route::resource('mahasiswa', MahasiswaController::class);
+    Route::get('mahasiswa-export', [MahasiswaController::class, 'export'])->name('mahasiswa.export');
+    Route::post('mahasiswa-import', [MahasiswaController::class, 'import'])->name('mahasiswa.import');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

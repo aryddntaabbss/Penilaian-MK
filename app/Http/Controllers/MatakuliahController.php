@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Matakuliah;
+use App\Exports\MatakuliahExport;
+use App\Imports\MatakuliahImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MatakuliahController extends Controller
 {
@@ -77,5 +80,24 @@ class MatakuliahController extends Controller
         $matakuliah->delete();
 
         return redirect()->route('matakuliah.index')->with('success', 'Data berhasil dihapus.');
+    }
+
+    /**
+     * Export the matakuliah data to an Excel file.
+     */
+    public function export()
+    {
+        return Excel::download(new MatakuliahExport, 'data_matakuliah.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv'
+        ]);
+
+        Excel::import(new MatakuliahImport, $request->file('file'));
+
+        return redirect()->route('matakuliah.index')->with('success', 'Data berhasil diimport.');
     }
 }

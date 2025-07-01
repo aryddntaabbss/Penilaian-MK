@@ -8,24 +8,23 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class MatakuliahExport implements FromCollection, WithHeadings
 {
-    /**
-     * Ambil data matakuliah dari database
-     */
     public function collection()
     {
-        return Matakuliah::select('kode', 'nama', 'sks', 'semester')->get();
+        return Matakuliah::with('dosen')
+            ->get()
+            ->map(function ($mk) {
+                return [
+                    'kode'      => $mk->kode,
+                    'nama'      => $mk->nama,
+                    'sks'       => $mk->sks,
+                    'semester'  => $mk->semester,
+                    'dosen'     => $mk->dosen->name ?? '-',
+                ];
+            });
     }
 
-    /**
-     * Header kolom di file Excel
-     */
     public function headings(): array
     {
-        return [
-            'Kode',
-            'Nama',
-            'SKS',
-            'Semester',
-        ];
+        return ['Kode', 'Nama', 'SKS', 'Semester', 'Dosen Pengampu'];
     }
 }

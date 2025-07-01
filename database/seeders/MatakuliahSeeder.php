@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Matakuliah;
 
-class MatakuliahTableSeeder extends Seeder
+class MatakuliahSeeder extends Seeder
 {
     public function run(): void
     {
@@ -13,14 +13,16 @@ class MatakuliahTableSeeder extends Seeder
             'kode' => 'MK001',
             'nama' => 'Pemrograman Web',
             'sks' => 3,
-            'semester' => 4
+            'semester' => 4,
+            'dosen_id' => 5
         ]);
 
         Matakuliah::create([
             'kode' => 'MK002',
             'nama' => 'Basis Data',
             'sks' => 3,
-            'semester' => 3
+            'semester' => 3,
+            'dosen_id' => 6
         ]);
     }
 }

@@ -54,6 +54,20 @@
                             <p class="text-xs text-gray-500 mt-1">Masukkan semester matakuliah diadakan.</p>
                         </div>
 
+                        <!-- Dosen Pengampu -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Dosen Pengampu</label>
+                            <select name="dosen_id" class="w-full border p-2 rounded" required>
+                                <option value="">-- Pilih Dosen --</option>
+                                @foreach ($dosen as $dsn)
+                                <option value="{{ $dsn->id }}"
+                                    {{ old('dosen_id', $matakuliah->dosen_id ?? '') == $dsn->id ? 'selected' : '' }}>
+                                    {{ $dsn->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <!-- Tombol -->
                         <div class="flex items-center justify-end space-x-3">
                             <button type="submit"

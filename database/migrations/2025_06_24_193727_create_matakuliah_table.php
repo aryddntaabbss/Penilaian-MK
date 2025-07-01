@@ -17,10 +17,13 @@ return new class extends Migration
             $table->string('nama');
             $table->integer('sks');
             $table->string('semester');
+            $table->unsignedBigInteger('dosen_id')->nullable();
             $table->timestamps();
+
+            // Foreign key ke tabel users
+            $table->foreign('dosen_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
 
     /**
      * Reverse the migrations.

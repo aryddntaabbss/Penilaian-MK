@@ -12,6 +12,12 @@ class Matakuliah extends Model
         'kode',
         'nama',
         'sks',
-        'semester'
+        'semester',
+        'dosen_id',
     ];
+
+    public function dosen()
+    {
+        return $this->belongsTo(User::class, 'dosen_id');
+    }
 }

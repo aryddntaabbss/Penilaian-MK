@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Matakuliah;
+use App\Models\User;
 use App\Exports\MatakuliahExport;
 use App\Imports\MatakuliahImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -15,54 +16,49 @@ class MatakuliahController extends Controller
      */
     public function index()
     {
-        $matakuliah = Matakuliah::all();
+        $matakuliah = Matakuliah::with('dosen')->get();
+
         return view('matakuliah.index', compact('matakuliah'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('matakuliah.create');
+        $dosen = User::where('role', 'dosen')->get();
+        return view('matakuliah.create', compact('dosen'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
             'kode' => 'required|unique:matakuliah',
             'nama' => 'required',
-            'sks'  => 'required|integer',
+            'sks' => 'required|integer',
             'semester' => 'required',
+            'dosen_id' => 'required|exists:users,id',
         ]);
+
 
         Matakuliah::create($request->all());
 
         return redirect()->route('matakuliah.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $matakuliah = Matakuliah::findOrFail($id);
-        return view('matakuliah.edit', compact('matakuliah'));
+        $dosen = User::where('role', 'dosen')->get();
+        return view('matakuliah.edit', compact('matakuliah', 'dosen'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'kode' => 'required|unique:matakuliah,kode,' . $id,
-            'nama' => 'required',
-            'sks'  => 'required|integer',
+            'kode'     => 'required|unique:matakuliah,kode,' . $id,
+            'nama'     => 'required',
+            'sks'      => 'required|integer',
             'semester' => 'required',
+            'dosen_id' => 'required|exists:users,id',
         ]);
 
         $matakuliah = Matakuliah::findOrFail($id);

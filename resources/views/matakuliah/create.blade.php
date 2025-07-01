@@ -29,7 +29,6 @@
                             <label class="block text-sm font-medium text-gray-700">Kode Matakuliah</label>
                             <input type="text" name="kode" placeholder="Misal: MK001" value="{{ old('kode') }}"
                                 class="w-full border p-2 rounded" required>
-                            <p class="text-xs text-gray-500 mt-1">Kode harus unik untuk tiap matakuliah.</p>
                         </div>
 
                         <!-- Nama Matakuliah -->
@@ -44,7 +43,6 @@
                             <label class="block text-sm font-medium text-gray-700">SKS</label>
                             <input type="number" name="sks" placeholder="Misal: 3" value="{{ old('sks') }}"
                                 class="w-full border p-2 rounded" required>
-                            <p class="text-xs text-gray-500 mt-1">Isi jumlah SKS matakuliah (angka).</p>
                         </div>
 
                         <!-- Semester -->
@@ -52,17 +50,27 @@
                             <label class="block text-sm font-medium text-gray-700">Semester</label>
                             <input type="number" name="semester" placeholder="Misal: 2" value="{{ old('semester') }}"
                                 class="w-full border p-2 rounded" required>
-                            <p class="text-xs text-gray-500 mt-1">Masukkan semester matakuliah diadakan.</p>
                         </div>
 
-                        <!-- Tombol Simpan -->
+                        <!-- Dosen Pengampu -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Dosen Pengampu</label>
+                            <select name="dosen_id" required class="w-full border p-2 rounded">
+                                <option value="">-- Pilih Dosen --</option>
+                                @foreach ($dosen as $d)
+                                <option value="{{ $d->id }}">{{ $d->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Tombol -->
                         <div class="flex items-center justify-end space-x-3">
                             <button type="submit"
                                 class="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700">Simpan</button>
                             <a href="{{ route('matakuliah.index') }}" class="text-gray-600 hover:underline">Kembali</a>
                         </div>
 
-                        <!-- Tampilkan Validasi Error -->
+                        <!-- Error Validation -->
                         @if ($errors->any())
                         <div class="bg-red-100 text-red-700 p-2 rounded mt-4">
                             <ul class="list-disc list-inside">

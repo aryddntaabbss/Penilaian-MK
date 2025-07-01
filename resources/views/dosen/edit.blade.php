@@ -26,7 +26,7 @@
                         <!-- NIP -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700">NIP</label>
-                            <input type="number" name="nip" value="{{ old('nip', $dosen->nip) }}"
+                            <input type="number" name="nip" value="{{ old('nip', $dosen->user->nip) }}"
                                 class="w-full border p-2 rounded" required>
                             <p class="text-xs text-gray-500 mt-1">NIP harus unik untuk tiap dosen.</p>
                         </div>
@@ -34,21 +34,28 @@
                         <!-- Nama -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Nama Dosen</label>
-                            <input type="text" name="nama" value="{{ old('nama', $dosen->nama) }}"
+                            <input type="text" name="nama" value="{{ old('nama', $dosen->user->name) }}"
                                 class="w-full border p-2 rounded" required>
                         </div>
 
                         <!-- Email -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" name="email" value="{{ old('email', $dosen->email) }}"
+                            <input type="email" name="email" value="{{ old('email', $dosen->user->email) }}"
                                 class="w-full border p-2 rounded" required>
                         </div>
 
-                        <!-- Prodi -->
+                        <!-- Jurusan -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Program Studi</label>
-                            <input type="text" name="prodi" value="{{ old('prodi', $dosen->prodi) }}"
+                            <label class="block text-sm font-medium text-gray-700">Jurusan</label>
+                            <input type="text" name="jurusan" value="{{ old('jurusan', $dosen->jurusan) }}"
+                                class="w-full border p-2 rounded" required>
+                        </div>
+
+                        <!-- Jabatan -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Jabatan</label>
+                            <input type="text" name="jabatan" value="{{ old('jabatan', $dosen->jabatan) }}"
                                 class="w-full border p-2 rounded" required>
                         </div>
 

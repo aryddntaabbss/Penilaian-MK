@@ -7,10 +7,11 @@ use App\Exports\DosenExport;
 use App\Imports\DosenImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Dosen;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DosenController extends Controller
 {
-
     public function index()
     {
         $dosen = Dosen::all();
@@ -25,15 +26,30 @@ class DosenController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nip' => 'required|unique:dosen',
-            'nama' => 'required',
-            'email' => 'required|email',
-            'prodi' => 'required',
+            'nip'   => 'required|unique:users,nip',
+            'nama'  => 'required',
+            'email' => 'required|email|unique:users,email',
+            'jurusan' => 'required',
+            'jabatan' => 'nullable',
         ]);
 
-        Dosen::create($request->all());
+        // Buat akun user dosen dulu
+        $user = \App\Models\User::create([
+            'nip'      => $request->nip,
+            'name'     => $request->nama,
+            'email'    => $request->email,
+            'role'     => 'dosen',
+            'password' => \Illuminate\Support\Facades\Hash::make($request->nip),
+        ]);
 
-        return redirect()->route('dosen.index')->with('success', 'Data berhasil ditambahkan.');
+        // Lanjut buat data dosen-nya
+        Dosen::create([
+            'user_id' => $user->id,
+            'jurusan'   => $request->jurusan,
+            'jabatan'   => $request->jabatan,
+        ]);
+
+        return redirect()->route('dosen.index')->with('success', 'Data dosen berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -44,32 +60,36 @@ class DosenController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nip' => 'required|unique:dosen,nip,' . $id,
-            'nama' => 'required',
-            'email' => 'required|email',
-            'prodi' => 'required',
+        $dosen = Dosen::with('user')->findOrFail($id);
+
+        // Update user
+        $dosen->user->update([
+            'nip'  => $request->nip,
+            'name' => $request->nama,
+            'email' => $request->email,
         ]);
 
-        $dosen = Dosen::findOrFail($id);
-        $dosen->update($request->all());
+        // Update dosen
+        $dosen->update([
+            'jurusan' => $request->jurusan,
+            'jabatan' => $request->jabatan,
+        ]);
 
-        return redirect()->route('dosen.index')->with('success', 'Data berhasil diperbarui.');
+
+        return redirect()->route('dosen.index')->with('success', 'Data dosen berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         $dosen = Dosen::findOrFail($id);
+
+        // Hapus user terkait
+        $dosen->user->delete();
+        // Hapus data dosen
         $dosen->delete();
 
-        return redirect()->route('dosen.index')->with('success', 'Data berhasil dihapus.');
+        return redirect()->route('dosen.index')->with('success', 'Data dosen berhasil dihapus.');
     }
-
-    /**
-     * Export the dosen data to an Excel file.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function export()
     {

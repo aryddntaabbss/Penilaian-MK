@@ -64,7 +64,8 @@
                                 <th class="px-4 py-2">NIP</th>
                                 <th class="px-4 py-2">Nama</th>
                                 <th class="px-4 py-2">Email</th>
-                                <th class="px-4 py-2">Prodi</th>
+                                <th class="px-4 py-2">Jurusan</th>
+                                <th class="px-4 py-2">Jabatan</th>
                                 <th class="px-4 py-2">Aksi</th>
                             </tr>
                         </thead>
@@ -72,10 +73,11 @@
                             @foreach ($dosen as $index => $item)
                             <tr class="border-b">
                                 <td class="px-4 py-2">{{ $index + 1 }}</td>
-                                <td class="px-4 py-2">{{ $item->nip }}</td>
-                                <td class="px-4 py-2">{{ $item->nama }}</td>
-                                <td class="px-4 py-2">{{ $item->email }}</td>
-                                <td class="px-4 py-2">{{ $item->prodi }}</td>
+                                <td class="px-4 py-2">{{ $item->user->nip }}</td>
+                                <td class="px-4 py-2">{{ $item->user->name }}</td>
+                                <td class="px-4 py-2">{{ $item->user->email }}</td>
+                                <td class="px-4 py-2">{{ $item->jurusan }}</td>
+                                <td class="px-4 py-2">{{ $item->jabatan }}</td>
                                 <td class="px-4 py-2 flex space-x-2">
                                     <a href="{{ route('dosen.edit', $item->id) }}"
                                         class="text-blue-600 hover:underline">Edit</a>

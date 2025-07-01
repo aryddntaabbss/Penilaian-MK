@@ -44,11 +44,18 @@
                                 class="w-full border p-2 rounded" required>
                         </div>
 
-                        <!-- Prodi -->
+                        <!-- jurusan -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Program Studi</label>
-                            <input type="text" name="prodi" placeholder="Misal: Teknik Informatika"
-                                value="{{ old('prodi') }}" class="w-full border p-2 rounded" required>
+                            <label class="block text-sm font-medium text-gray-700">Jurusan</label>
+                            <input type="text" name="jurusan" placeholder="Misal: Teknik Informatika"
+                                value="{{ old('jurusan') }}" class="w-full border p-2 rounded" required>
+                        </div>
+
+                        <!-- Jabatan -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Jabatan</label>
+                            <input type="text" name="jabatan" placeholder="Misal: Lektor" value="{{ old('jabatan') }}"
+                                class="w-full border p-2 rounded" required>
                         </div>
 
                         <!-- Tombol Simpan -->

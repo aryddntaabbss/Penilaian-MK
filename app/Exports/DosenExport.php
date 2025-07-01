@@ -8,24 +8,27 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class DosenExport implements FromCollection, WithHeadings
 {
-    /**
-     * Ambil data dosen dari database
-     */
     public function collection()
     {
-        return Dosen::select('nip', 'nama', 'email', 'prodi')->get();
+        return Dosen::with('user')->get()->map(function ($dosen) {
+            return [
+                'nip'      => $dosen->user->nip,
+                'nama'     => $dosen->user->name,
+                'email'    => $dosen->user->email,
+                'jurusan'  => $dosen->jurusan,
+                'jabatan'  => $dosen->jabatan,
+            ];
+        });
     }
 
-    /**
-     * Header kolom di file Excel
-     */
     public function headings(): array
     {
         return [
             'NIP',
             'Nama',
             'Email',
-            'Prodi',
+            'Jurusan',
+            'Jabatan',
         ];
     }
 }

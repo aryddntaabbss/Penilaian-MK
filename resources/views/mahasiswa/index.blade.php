@@ -65,6 +65,8 @@
                                 <th class="px-4 py-2">Nama</th>
                                 <th class="px-4 py-2">Email</th>
                                 <th class="px-4 py-2">Jurusan</th>
+                                <th class="px-4 py-2">Semester</th>
+                                <th class="px-4 py-2">Status</th>
                                 <th class="px-4 py-2">Aksi</th>
                             </tr>
                         </thead>
@@ -72,10 +74,12 @@
                             @foreach ($mahasiswa as $mhs)
                             <tr>
                                 <td class="border-t px-4 py-2">{{ $loop->iteration }}</td>
-                                <td class="border-t px-4 py-2">{{ $mhs->npm }}</td>
-                                <td class="border-t px-4 py-2">{{ $mhs->nama }}</td>
-                                <td class="border-t px-4 py-2">{{ $mhs->email }}</td>
-                                <td class="border-t px-4 py-2">{{ $mhs->jurusan }}</td>
+                                <td class="border-t px-4 py-2">{{ $mhs->user->npm }}</td>
+                                <td class="border-t px-4 py-2">{{ $mhs->user->name }}</td>
+                                <td class="border-t px-4 py-2">{{ $mhs->user->email }}</td>
+                                <td class="border-t px-4 py-2">{{ $mhs->jurusan ?? '-' }}</td>
+                                <td class="border-t px-4 py-2">Semester {{ $mhs->semester ?? '-' }}</td>
+                                <td class="border-t px-4 py-2">{{ $mhs->status() }}</td>
                                 <td class="border-t px-4 py-2">
                                     <a href="{{ route('mahasiswa.edit', $mhs->id) }}"
                                         class="text-blue-600 hover:underline mr-2">Edit</a>

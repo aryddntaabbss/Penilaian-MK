@@ -5,6 +5,7 @@
         <div class="flex items-center space-x-6">
             <a href="/dashboard" class="hover:underline">Home</a>
 
+            @if(Auth::user() && (Auth::user()->role === 'dosen' || Auth::user()->role === 'tu'))
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" class="hover:underline inline-flex items-center">
                     Manajemen Data
@@ -22,8 +23,17 @@
                     <a href="/dosen" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Data Dosen</a>
                 </div>
             </div>
+            @endif
 
+            @if(Auth::user() && Auth::user()->role === 'dosen')
             <a href="/nilai" class="hover:underline">Data Nilai</a>
+            @endif
+
+            @if(Auth::user() && Auth::user()->role === 'mahasiswa')
+            <a href="{{ route('nilai.saya') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Nilai Saya
+            </a>
+            @endif
 
             <div class="relative">
                 <x-dropdown align="right" width="48">

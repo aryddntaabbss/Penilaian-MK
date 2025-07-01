@@ -9,11 +9,24 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class MahasiswaExport implements FromCollection, WithHeadings
 {
     /**
-     * Ambil data mahasiswa dari database
+     * Ambil semua data mahasiswa dan relasi user
      */
     public function collection()
     {
-        return Mahasiswa::select('npm', 'nama', 'email', 'jurusan')->get();
+        return Mahasiswa::with('user')
+            ->get()
+            ->map(function ($mhs) {
+                return [
+                    'npm'        => $mhs->user->npm,
+                    'nama'       => $mhs->user->name,
+                    'email'      => $mhs->user->email,
+                    'role'       => $mhs->user->role,
+                    'created_at' => $mhs->user->created_at->format('Y-m-d H:i:s'),
+                    'jurusan'    => $mhs->jurusan,
+                    'semester'   => $mhs->semester,
+                    'status'     => $mhs->status(),
+                ];
+            });
     }
 
     /**
@@ -25,7 +38,11 @@ class MahasiswaExport implements FromCollection, WithHeadings
             'NPM',
             'Nama',
             'Email',
+            'Role',
+            'Dibuat Pada',
             'Jurusan',
+            'Semester',
+            'Status',
         ];
     }
 }

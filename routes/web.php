@@ -29,32 +29,38 @@ Route::middleware(['auth', 'role:tu'])->group(function () {
     });
 });
 
-// resource routes for TU role}}
-Route::middleware(['auth', 'role:tu'])->group(function () {
+// resource routes for TU and Dosen roles
+Route::middleware(['auth', 'role:tu,dosen'])->group(function () {
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::get('mahasiswa-export', [MahasiswaController::class, 'export'])->name('mahasiswa.export');
     Route::post('mahasiswa-import', [MahasiswaController::class, 'import'])->name('mahasiswa.import');
-});
 
-Route::middleware(['auth', 'role:tu'])->group(function () {
     Route::resource('matakuliah', MatakuliahController::class);
     Route::get('matakuliah-export', [MatakuliahController::class, 'export'])->name('matakuliah.export');
     Route::post('matakuliah-import', [MatakuliahController::class, 'import'])->name('matakuliah.import');
-});
 
-Route::middleware(['auth', 'role:tu'])->group(function () {
     Route::resource('dosen', DosenController::class);
-    Route::get('/dosen-export', [DosenController::class, 'export'])->name('dosen.export');
-    Route::post('/dosen-import', [DosenController::class, 'import'])->name('dosen.import');
+    Route::get('dosen-export', [DosenController::class, 'export'])->name('dosen.export');
+    Route::post('dosen-import', [DosenController::class, 'import'])->name('dosen.import');
 });
-// End of resource routes for TU role
+// End of resource routes for TU and Dosen roles
 
 // resource routes for Nilai
-Route::resource('/nilai', NilaiController::class);
-Route::get('/nilai-export', [NilaiController::class, 'export'])->name('nilai.export');
+Route::middleware(['auth', 'role:dosen'])->group(function () {
+    Route::get('/nilai/filter/{matakuliah_id?}', [NilaiController::class, 'index'])->name('nilai.index');
+    Route::get('/nilai-export', [NilaiController::class, 'export'])->name('nilai.export');
+    Route::get('/nilai-mahasiswa/{npm}', [NilaiController::class, 'nilaiMahasiswa'])->name('nilai.mahasiswa');
 
+    Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
+    Route::resource('/nilai', NilaiController::class)->except(['show']);
+});
 
 // End of resource routes for Nilai
+
+Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
+    Route::get('/nilaiku', [NilaiController::class, 'nilaiSaya'])->name('nilai.saya');
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

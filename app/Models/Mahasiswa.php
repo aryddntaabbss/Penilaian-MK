@@ -12,9 +12,18 @@ class Mahasiswa extends Model
     protected $table = 'mahasiswa';
 
     protected $fillable = [
-        'npm',
-        'nama',
-        'email',
-        'jurusan'
+        'user_id',
+        'jurusan',
+        'semester',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function status()
+    {
+        return $this->semester > 14 ? 'Drop Out' : 'Aktif';
+    }
 }

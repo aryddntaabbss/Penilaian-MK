@@ -9,13 +9,21 @@ use App\Models\Dosen;
 use App\Exports\NilaiExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NilaiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $nilai = Nilai::with('mahasiswa', 'matakuliah', 'dosen')->get();
-        return view('nilai.index', compact('nilai'));
+        $matakuliah = Matakuliah::all();
+
+        $nilai = Nilai::with('mahasiswa', 'dosen', 'matakuliah')
+            ->when($request->matakuliah_id, function ($query) use ($request) {
+                $query->where('matakuliah_id', $request->matakuliah_id);
+            })
+            ->get();
+
+        return view('nilai.index', compact('nilai', 'matakuliah'));
     }
 
     public function create()
@@ -74,6 +82,38 @@ class NilaiController extends Controller
         return redirect()->route('nilai.index')->with('success', 'Data nilai berhasil dihapus.');
     }
 
+    public function show($id)
+    {
+        $nilai = Nilai::with('mahasiswa', 'matakuliah', 'dosen')->findOrFail($id);
+        return view('nilai.show', compact('nilai'));
+    }
+
+    public function nilaiMahasiswa($npm)
+    {
+        $nilai = Nilai::with('matakuliah', 'dosen')
+            ->whereHas('mahasiswa', function ($query) use ($npm) {
+                $query->where('npm', $npm);
+            })
+            ->get();
+
+        return view('nilai.nilai-mahasiswa', compact('nilai'));
+    }
+
+
+    public function nilaiSaya()
+    {
+        $mahasiswa_id = Auth::user()->id;
+        $nilai = Nilai::with('matakuliah', 'dosen')
+            ->where('mahasiswa_id', $mahasiswa_id)
+            ->get();
+
+        return view('nilai.nilai-mahasiswa', compact('nilai'));
+    }
+    /**
+     * Export data to Excel.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function export()
     {
         return Excel::download(new NilaiExport, 'data_nilai.xlsx');

@@ -2,7 +2,8 @@
 
 @section('title', 'Tambah Mahasiswa')
 
-@section('content')<div class="py-12">
+@section('content')
+<div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         <!-- Breadcrumb -->
@@ -12,7 +13,7 @@
             ['title' => 'Tambah Mahasiswa']
         ]" />
 
-        <section class=" overflow-hidden mb-5">
+        <section class="overflow-hidden mb-5">
             <div class="p-6">
 
                 <div class="bg-white shadow-md border rounded-lg p-5">
@@ -21,13 +22,24 @@
                     <form action="{{ route('mahasiswa.store') }}" method="POST" class="space-y-4">
                         @csrf
 
-                        <input type="text" name="npm" placeholder="NPM" value="{{ old('npm') }}"
-                            class="w-full border p-2 rounded" required>
-                        <input type="text" name="nama" placeholder="Nama" value="{{ old('nama') }}"
-                            class="w-full border p-2 rounded" required>
-                        <input type="email" name="email" placeholder="Email" value="{{ old('email') }}"
-                            class="w-full border p-2 rounded" required>
-                        <input type="text" name="jurusan" placeholder="Jurusan" value="{{ old('jurusan') }}"
+                        <label>NPM</label>
+                        <input type="number" name="npm" value="{{ old('npm') }}" class="w-full border p-2 rounded"
+                            required>
+
+                        <label>Nama</label>
+                        <input type="text" name="nama" value="{{ old('nama') }}" class="w-full border p-2 rounded"
+                            required>
+
+                        <label>Email</label>
+                        <input type="email" name="email" value="{{ old('email') }}" class="w-full border p-2 rounded"
+                            required>
+
+                        <label>Jurusan</label>
+                        <input type="text" name="jurusan" value="{{ old('jurusan') }}" class="w-full border p-2 rounded"
+                            required>
+
+                        <label>Semester</label>
+                        <input type="number" name="semester" value="{{ old('semester') }}"
                             class="w-full border p-2 rounded" required>
 
                         <button type="submit"
@@ -45,7 +57,10 @@
                         @endif
                     </form>
                 </div>
+
             </div>
         </section>
+
     </div>
-    @endsection
+</div>
+@endsection

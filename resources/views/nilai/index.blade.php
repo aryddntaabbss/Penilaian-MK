@@ -13,20 +13,30 @@
             ['title' => 'Data Nilai Mahasiswa', 'url' => route('nilai.index')]
         ]" />
 
-        <section class="overflow-hidden mb-5">
+        <section class="overflow-hidden">
             <div class="p-6">
                 <div class="flex justify-between mb-4">
                     <h1 class="text-2xl font-bold">Data Nilai Mahasiswa</h1>
-                    <!-- Action buttons -->
-                    <div class="flex space-x-2 mb-4">
+                    <div class="flex space-x-2">
                         <a href="{{ route('nilai.create') }}"
-                            class="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700">+ Input Nilai</a>
-
+                            class="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700">+ Input
+                            Nilai</a>
                         <a href="{{ route('nilai.export') }}"
                             class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export Excel</a>
-
                     </div>
                 </div>
+                <form method="GET" action="{{ route('nilai.index') }}">
+                    <label for="matakuliah_id" class="mr-2">Filter Matakuliah:</label>
+                    <select name="matakuliah_id" id="matakuliah_id" class="border p-1 rounded"
+                        onchange="this.form.submit()">
+                        <option value="">Semua</option>
+                        @foreach($matakuliah as $mk)
+                        <option value="{{ $mk->id }}" {{ request('matakuliah_id') == $mk->id ? 'selected' : '' }}>
+                            {{ $mk->nama }}
+                        </option>
+                        @endforeach
+                    </select>
+                </form>
             </div>
             <!-- End of action buttons -->
     </div>
@@ -52,6 +62,8 @@
                     <td class="border-t px-4 py-2">{{ $item->dosen->nama }}</td>
                     <td class="border-t px-4 py-2">{{ $item->nilai }} ({{ $item->huruf }})</td>
                     <td class="border-t px-4 py-2">
+                        <a href="{{ route('nilai.mahasiswa', $item->mahasiswa->npm) }}"
+                            class="text-blue-600 hover:underline mr-2">Lihat</a>
                         <a href="{{ route('nilai.edit', $item->id) }}"
                             class="text-blue-600 hover:underline mr-2">Edit</a>
                         <form action="{{ route('nilai.destroy', $item->id) }}" method="POST" class="inline">

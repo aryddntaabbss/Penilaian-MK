@@ -1,38 +1,38 @@
-# 📚 Sistem Informasi Penilaian Mata Kuliah
+# Sistem Informasi Penilaian Mata Kuliah
 
 Sistem ini merupakan aplikasi berbasis web untuk manajemen data nilai mahasiswa, pengelolaan KRS (Kartu Rencana Studi), dan KHS (Kartu Hasil Studi) berbasis Laravel 11.
 
 ---
 
-## 📌 Fitur Utama
+## Fitur Utama
 
-### 🔑 Autentikasi
+### Autentikasi
 - Login menggunakan **NPM / NIP / NIDN** sesuai role:
   - **Mahasiswa**
   - **Dosen**
   - **TU/Admin**
 
-### 🎓 Mahasiswa
+### Mahasiswa
 - **KRS**: Mahasiswa memilih mata kuliah yang akan diambil.
 - **KHS**: Melihat hasil nilai mata kuliah yang telah diambil beserta nilai huruf (A, AB, B, dst) dan IPK.
 
-### 👨‍🏫 Dosen
+### Dosen
 - Melihat daftar mata kuliah yang diampu.
 - Melihat daftar mahasiswa yang kontrak di mata kuliah tersebut.
 - Memberikan / mengubah nilai mahasiswa.
 
-### 🗄️ TU / Admin
+### TU / Admin
 - Manajemen data:
   - Mahasiswa
   - Dosen
   - Mata Kuliah
 
-### 📊 Export Data
+### Export Data
 - Export nilai mahasiswa ke file **Excel**.
 
 ---
 
-## 📚 Database Structure
+## Database Structure
 
 - **mahasiswa**
 - **dosen**
@@ -42,7 +42,7 @@ Sistem ini merupakan aplikasi berbasis web untuk manajemen data nilai mahasiswa,
 
 ---
 
-## 📈 Alur Sistem
+## Alur Sistem
 
 1. **Login**
 2. Cek **Role User**
@@ -56,7 +56,7 @@ Sistem ini merupakan aplikasi berbasis web untuk manajemen data nilai mahasiswa,
 
 ---
 
-## 🛠️ Instalasi
+## Instalasi
 
 ```bash
 git clone https://github.com/username/penilaian-mk.git

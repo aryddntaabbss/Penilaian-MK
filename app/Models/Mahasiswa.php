@@ -26,4 +26,9 @@ class Mahasiswa extends Model
     {
         return $this->semester > 14 ? 'Drop Out' : 'Aktif';
     }
+
+    public function kontrak()
+    {
+        return $this->belongsToMany(Matakuliah::class, 'kontrak_matakuliah', 'mahasiswa_id', 'matakuliah_id');
+    }
 }

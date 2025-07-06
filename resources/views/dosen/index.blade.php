@@ -59,7 +59,7 @@
                 <div class="bg-white shadow-md border rounded-lg p-5">
                     <table id="simpledataTable" class="table-auto w-full pt-5 ">
                         <thead>
-                            <tr class="bg-gray-100">
+                            <tr class="bg-gray-50">
                                 <th class="px-4 py-2">No</th>
                                 <th class="px-4 py-2">NIP</th>
                                 <th class="px-4 py-2">Nama</th>

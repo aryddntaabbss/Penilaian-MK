@@ -37,6 +37,11 @@ class User extends Authenticatable
         return $this->hasMany(MataKuliah::class);
     }
 
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

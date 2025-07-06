@@ -5,6 +5,8 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\KrsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,20 +49,17 @@ Route::middleware(['auth', 'role:tu,dosen'])->group(function () {
 
 // resource routes for Nilai
 Route::middleware(['auth', 'role:dosen'])->group(function () {
-    Route::get('/nilai/filter/{matakuliah_id?}', [NilaiController::class, 'index'])->name('nilai.index');
-    Route::get('/nilai-export', [NilaiController::class, 'export'])->name('nilai.export');
-    Route::get('/nilai-mahasiswa/{npm}', [NilaiController::class, 'nilaiMahasiswa'])->name('nilai.mahasiswa');
-
-    Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
-    Route::resource('/nilai', NilaiController::class)->except(['show']);
+    Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
+    Route::get('/penilaian/{matakuliah_id}', [PenilaianController::class, 'detail'])->name('penilaian.detail');
+    Route::post('/penilaian/{matakuliah_id}', [PenilaianController::class, 'simpan'])->name('penilaian.simpan');
 });
 
-// End of resource routes for Nilai
+Route::get('/khs-saya', [NilaiController::class, 'khsSaya'])->name('khs.saya');
 
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
-    Route::get('/nilaiku', [NilaiController::class, 'nilaiSaya'])->name('nilai.saya');
+    Route::get('/krs', [KrsController::class, 'index'])->name('krs.index');
+    Route::post('/krs/simpan', [KrsController::class, 'store'])->name('krs.store');
 });
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');

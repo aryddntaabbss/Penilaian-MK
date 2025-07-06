@@ -44,6 +44,11 @@ class NilaiController extends Controller
             'nilai' => 'required|integer|between:0,100'
         ]);
 
+        Nilai::updateOrCreate(
+            ['mahasiswa_id' => $request->mahasiswa_id, 'matakuliah_id' => $request->matakuliah_id],
+            ['nilai' => $request->nilai, 'dosen_id' => $request->dosen_id]
+        );
+
         Nilai::create($request->all());
         return redirect()->route('nilai.index')->with('success', 'Data nilai berhasil ditambahkan.');
     }
@@ -99,16 +104,17 @@ class NilaiController extends Controller
         return view('nilai.nilai-mahasiswa', compact('nilai'));
     }
 
-
-    public function nilaiSaya()
+    public function khsSaya()
     {
-        $mahasiswa_id = Auth::user()->id;
+        $mahasiswaId = Auth::user()->mahasiswa->id;
+
         $nilai = Nilai::with('matakuliah', 'dosen')
-            ->where('mahasiswa_id', $mahasiswa_id)
+            ->where('mahasiswa_id', $mahasiswaId)
             ->get();
 
-        return view('nilai.nilai-mahasiswa', compact('nilai'));
+        return view('mahasiswa.khs', compact('nilai'));
     }
+
     /**
      * Export data to Excel.
      *
